@@ -6,6 +6,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import jrocksly.project.model.SubCategory;
 
@@ -14,7 +15,7 @@ public interface SubCategoryRepository extends CrudRepository<SubCategory, Long>
 	
 	List<SubCategory> findByCategoryId(Long categoryId);
 
-	@Query("select sc from SubCategory sc, Category ca, Causal c where c.id = ca.causal_id and ca.id = sc.categoryId and c.id = :causalId")
-	List<SubCategory> findByCausalId(Long causalId);
+	@Query("select sc from SubCategory sc, Category ca, Causal c where c.id = ca.causal_id and ca.id = sc.categoryId and c.id = :causalIdParam")
+	List<SubCategory> findByCausalId(@Param("causalIdParam") Long causalId);
 	
 }

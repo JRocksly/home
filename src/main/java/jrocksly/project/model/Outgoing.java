@@ -21,18 +21,18 @@ public class Outgoing {
 	private Long id;
 
 	@NotNull
-	private Long idCausal;
+	private Long causalId;
 
-	private Long idCategory;
+	private Long categoryId;
 
-	private Long idSubcategory;
+	private Long subcategoryId;
 
 	private String description;
 
 	@Temporal(TemporalType.DATE)
 	private Date date;
 
-	private BigDecimal expence;
+	private BigDecimal expense;
 
 	public Outgoing() {
 	}
@@ -45,28 +45,28 @@ public class Outgoing {
 		this.id = id;
 	}
 
-	public Long getIdCausal() {
-		return idCausal;
+	public Long getCausalId() {
+		return causalId;
 	}
 
-	public void setIdCausal(Long idCausal) {
-		this.idCausal = idCausal;
+	public void setCausalId(Long causalId) {
+		this.causalId = causalId;
 	}
 
-	public Long getIdCategory() {
-		return idCategory;
+	public Long getCategoryId() {
+		return categoryId;
 	}
 
-	public void setIdCategory(Long idCategory) {
-		this.idCategory = idCategory;
+	public void setCategoryId(Long categoryId) {
+		this.categoryId = categoryId;
 	}
 
-	public Long getIdSubcategory() {
-		return idSubcategory;
+	public Long getSubcategoryId() {
+		return subcategoryId;
 	}
 
-	public void setIdSubcategory(Long idSubcategory) {
-		this.idSubcategory = idSubcategory;
+	public void setSubcategoryId(Long subcategoryId) {
+		this.subcategoryId = subcategoryId;
 	}
 
 	public String getDescription() {
@@ -85,12 +85,12 @@ public class Outgoing {
 		this.date = date;
 	}
 
-	public BigDecimal getExpence() {
-		return expence;
+	public BigDecimal getExpense() {
+		return expense;
 	}
 
-	public void setExpence(BigDecimal expence) {
-		this.expence = expence;
+	public void setExpense(BigDecimal expense) {
+		this.expense = expense;
 	}
 
 }

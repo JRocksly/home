@@ -1,8 +1,10 @@
 package jrocksly.project.bean;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,19 +18,17 @@ public class CategoryBean {
 	
 	@Autowired
 	private CategoryRepository categoryRepo;
+	
+	@PersistenceContext
+	private EntityManager em;
 
+	@SuppressWarnings("unchecked")
 	public List<CategoryDTO> getCategoriesList(Long causalId) {
-		List<CategoryDTO> output = new ArrayList<CategoryDTO>();
-		List<Category> categories = new ArrayList<Category>();
-		if(causalId != null) {
-			categories = categoryRepo.findByCausalId(causalId);
-		}else{
-			categories = (List<Category>) categoryRepo.findAll();
-		}
-		for(Category c : categories) {
-			output.add(new CategoryDTO(c));
-		}
-		return output;
+		return em.createQuery("select new jrocksly.project.dto.CategoryDTO(ca) "
+				+ "from Category ca, Causal c "
+				+ "where c.id = causalIdParam and c.id = ca.causalId")
+				.setParameter("causalIdParam", causalId)
+				.getResultList();
 	}
 
 	public CategoryDTO createCategory(Long causalId, String label) throws SQLException {

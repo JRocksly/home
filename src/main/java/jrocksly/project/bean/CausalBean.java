@@ -1,8 +1,10 @@
 package jrocksly.project.bean;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,14 +18,13 @@ public class CausalBean {
 
 	@Autowired
 	private CausalRepository causalRepo;
+	
+	@PersistenceContext
+	private EntityManager em;
 
+	@SuppressWarnings("unchecked")
 	public List<CausalDTO> getCausalList() {
-		List<CausalDTO> output = new ArrayList<CausalDTO>();
-		List<Causal> causalList = (List<Causal>) causalRepo.findAll();
-		for(Causal c : causalList) {
-			output.add(new CausalDTO(c));
-		}
-		return output;
+		return em.createQuery("select new jrocksly.project.dto.CausalDTO(c) from Causal c").getResultList();
 	}
 
 	public CausalDTO createCausal(String label) throws SQLException {

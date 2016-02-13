@@ -53,7 +53,7 @@ public class SubCategoryService {
 		if(subCategory == null) {
 			return new ResponseEntity<>("Errore!", HttpStatus.BAD_REQUEST);
 		}else if(subCategory.getLabel() == null || subCategory.getLabel().isEmpty()) {
-			return new ResponseEntity<>("Inserire un nome valido per la sub categoria!", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("Inserire un nome valido per la sotto-categoria!", HttpStatus.BAD_REQUEST);
 		}else if(subCategory.getCategoryId() == null || subCategory.getCategoryId().isEmpty()) {
 			return new ResponseEntity<>("Categoria non valida!", HttpStatus.BAD_REQUEST);
 		}else{
