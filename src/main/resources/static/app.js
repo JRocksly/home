@@ -2,6 +2,9 @@ angular.module('static', ['ui.bootstrap','ui.utils','ngRoute','ngAnimate']);
 
 angular.module('static').config(function($routeProvider) {
 
+    $routeProvider.when('/home',{templateUrl: 'partial/home/home.html'});
+    $routeProvider.when('/admin',{templateUrl: 'partial/admin/admin.html'});
+    $routeProvider.when('/expense/:id',{templateUrl: 'partial/expense/expense.html'});
     /* Add New Routes Above */
     $routeProvider.otherwise({redirectTo:'/home'});
 

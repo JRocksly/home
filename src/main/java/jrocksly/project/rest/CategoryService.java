@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -66,6 +67,16 @@ public class CategoryService {
 			return new ResponseEntity<>("Categoria gia' presente!", HttpStatus.CONFLICT);
 		}
 		return new ResponseEntity<>(output, HttpStatus.CREATED);
+	}
+	
+	@RequestMapping(value={"/{id}"}, method=RequestMethod.PUT, consumes={"application/json"}, produces={"application/json"})
+	public ResponseEntity<?> editCategory(@PathVariable("id") String id, @RequestBody CategoryDTO causal) {
+		return null;
+	}
+	
+	@RequestMapping(value={"/{id}"}, method=RequestMethod.DELETE)
+	public ResponseEntity<?> deleteCategory(@PathVariable("id") String id) {
+		return null;
 	}
 	
 }

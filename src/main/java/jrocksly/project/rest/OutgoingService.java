@@ -48,6 +48,9 @@ public class OutgoingService {
 		Long causalId = null;
 		Long categoryId = null;
 		Long subcategoryId = null;
+		if(description != null && description.length() < 3) {
+			return new ResponseEntity<>("Inserire almeno 3 caratteri per la descrizione!", HttpStatus.BAD_REQUEST);
+		}
 		if(causal != null) {
 			causalId = Long.parseLong(causal);
 			if(!causalBean.exists(causalId)) {
@@ -86,6 +89,8 @@ public class OutgoingService {
 	public ResponseEntity<?> createOutgoing(@RequestBody OutgoingDTO outgoing) {
 		if(outgoing == null) {
 			return new ResponseEntity<>("Errore!", HttpStatus.BAD_REQUEST);
+		}else if(outgoing.getDescription() == null || outgoing.getDescription().length() < 3) {
+			return new ResponseEntity<>("Inserire almeno 3 caratteri per la descrizione!", HttpStatus.BAD_REQUEST);
 		}else if(outgoing.getCausalId() == null || outgoing.getCausalId().isEmpty()) {
 			return new ResponseEntity<>("Causale non valida!", HttpStatus.BAD_REQUEST);
 		}else if(outgoing.getDate() == null || !outgoing.getDate().isEmpty()) {
