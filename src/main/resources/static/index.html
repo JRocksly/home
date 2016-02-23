@@ -31,14 +31,17 @@
   <script src="partial/home/home.js"></script>
   <script src="partial/admin/admin.js"></script>
   <script src="partial/expense/expense.js"></script>
+  <script src="directive/navbar/navbar.js"></script>
+  <script src="service/LoadingService.js"></script>
   <!-- Add New Component JS Above -->
 	
   <div>
-    <div id="content" class="container">
-      <div class="row">
-        <div ng-view>
+    <div data-ng-if="loading" class="loading"></div>
+    <div id="content" class="container no-lateral-margin full-width">
+        <div class="row">
+            <div ng-view>
+            </div>
         </div>
-      </div>
     </div>
   </div>
 
