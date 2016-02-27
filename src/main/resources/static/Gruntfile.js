@@ -61,7 +61,7 @@ module.exports = function (grunt) {
         options: {
             jshintrc: '.jshintrc'
         },
-        src: createFolderGlobs('*.js')
+        src: [createFolderGlobs('*.js'),'!directive/panels/panels.js']
       }
     },
     clean: {

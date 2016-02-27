@@ -8,6 +8,7 @@
 @import "partial/admin/admin.less";
 @import "partial/expense/expense.less";
 @import "directive/navbar/navbar.less";
+@import "directive/panels/panels.less";
 /* Add Component LESS Above */
 
 /* Required for Angular UI Bootstrap */
@@ -40,14 +41,18 @@
 
 *, * h1, * h2, * h3, * h4, * h5, * h6 { font-family: 'Hanna', 'Malgun Gothic'; }
 
-.no-lateral-margin {
-    margin-left: 0px;
-    margin-right: 0px;
+body{
+    overflow-x: hidden;
 }
 
-.full-width {
+.full-width{
     width: 100%;
     display: block;
+}
+
+.application-margin{
+    margin-left: 15%;
+    margin-right: 15%;
 }
 
 /* Absolute Center Spinner */

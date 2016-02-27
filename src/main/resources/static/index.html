@@ -33,17 +33,20 @@
   <script src="partial/expense/expense.js"></script>
   <script src="directive/navbar/navbar.js"></script>
   <script src="service/LoadingService.js"></script>
+  <script src="directive/panels/panels.js"></script>
+  <script src="service/RestService.js"></script>
+  <script src="partial/admin/service/AdminService.js"></script>
   <!-- Add New Component JS Above -->
 	
+  <div data-ng-if="loading" class="loading"></div>
+  <navbar></navbar>
   <div>
-    <div data-ng-if="loading" class="loading"></div>
-    <div id="content" class="container no-lateral-margin full-width">
+    <div id="content" class="container full-width">
         <div class="row">
             <div ng-view>
             </div>
         </div>
     </div>
   </div>
-
 </body>
 </html>

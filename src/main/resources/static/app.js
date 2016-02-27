@@ -1,4 +1,4 @@
-angular.module('static', ['ui.bootstrap','ui.utils','ngRoute','ngAnimate']);
+angular.module('static', ['ui.bootstrap','ui.utils','ngRoute','ngAnimate','angular.panels']);
 
 angular.module('static').config(function($routeProvider) {
 
