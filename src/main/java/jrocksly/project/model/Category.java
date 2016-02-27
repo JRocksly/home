@@ -1,51 +1,33 @@
 package jrocksly.project.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "CATEGORY")
-public class Category {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+public class Category extends CategorizationElem {
 
 	@NotNull
-	private Long causalId;
-
-	@NotNull
-	private String label;
+	@Column(name = "CAUSAL_ID")
+	private Long parentId;
 
 	public Category() {
+		super();
 	}
 
-	public Long getId() {
-		return id;
+	public Category(Long id, String label, Long parentId) {
+		super(id, label);
+		this.parentId = parentId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public Long getParentId() {
+		return parentId;
 	}
 
-	public Long getCausalId() {
-		return causalId;
-	}
-
-	public void setCausalId(Long causalId) {
-		this.causalId = causalId;
-	}
-
-	public String getLabel() {
-		return label;
-	}
-
-	public void setLabel(String label) {
-		this.label = label;
+	public void setParentId(Long parentId) {
+		this.parentId = parentId;
 	}
 
 }
