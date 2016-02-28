@@ -39,7 +39,7 @@ angular.module('static').factory('AdminService', ['$http', '$q', 'CAUSAL_URL', f
             var deferred = $q.defer();
             $http({
               method: 'PUT',
-              url: CAUSAL_URL + '/' + data.id,
+              url: CAUSAL_URL + '/id/' + data.id,
               data: data.label
             }).then(
                 function(payload){

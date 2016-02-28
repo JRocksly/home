@@ -24,7 +24,7 @@ import jrocksly.project.dto.OutgoingDTO;
 import jrocksly.project.model.CategorizationElem;
 
 @Controller
-@RequestMapping(value = "/outgoing")
+@RequestMapping(value = "/rest/outgoing")
 public class OutgoingService {
 
 	@Autowired

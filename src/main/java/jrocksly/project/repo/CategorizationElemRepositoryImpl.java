@@ -4,19 +4,21 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Component;
 
 import jrocksly.project.dto.CategorizationElemDTO;
 import jrocksly.project.model.CategorizationElem;
+import jrocksly.project.model.CategorizationElem.Type;
 import jrocksly.project.model.CategorizationElemFactory;
 import jrocksly.project.model.Category;
 import jrocksly.project.model.Causal;
 import jrocksly.project.model.SubCategory;
-import jrocksly.project.model.CategorizationElem.Type;
 
 @SuppressWarnings("unchecked")
 @Component("hqlCategorizationElemRepo")
+@Transactional
 public class CategorizationElemRepositoryImpl implements CategorizationElemRepository {
 
 	@PersistenceContext

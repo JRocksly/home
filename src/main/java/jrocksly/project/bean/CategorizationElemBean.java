@@ -51,6 +51,9 @@ public class CategorizationElemBean {
 
 	public boolean parentExists(String type, String parentId) throws Exception {
 		Type entityType = Type.findByApi(type);
+		if(entityType.equals(Type.CASUAL)) {
+			return true;
+		}
 		Type parentType = Type.findParentEntity(type);
 		if(entityType == null || parentType == null) {
 			throw new Exception();
@@ -94,7 +97,7 @@ public class CategorizationElemBean {
 		CategorizationElem c = getElement(type, id);
 		return c != null;
 	}
-
+	
 	private CategorizationElem getElement(String type, String id) throws Exception {
 		Type entityType = Type.findByApi(type);
 		if(entityType == null) {
