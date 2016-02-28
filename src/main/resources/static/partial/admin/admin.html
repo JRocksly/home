@@ -1,35 +1,47 @@
-<div class="application-margin">
+<div>
     <div class="col-md-12" ng-controller="AdminCtrl">
-        
+
         <h1>Amministrazione</h1>
         <h3>
             Utilizza i pannelli per creare le tue categorie
             <br>
             <small class="block">
-                Poi ci scrivero' qualcosa :)
+                Seleziona un elemento per visualizzare le sue sotto-categorie o creane uno nuovo con il <i class="fa fa-plus-circle fa-2x"></i>. 
             </small>
         </h3>
         
         <div class="col-md-4 elem-container">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Causali</h3>
-                </div>
-                <div class="panel-body">
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            <span class="badge">14</span>
-                            Simple &lt;ul&gt; list
-                        </li>
-                        <li class="list-group-item">
-                            <span class="badge">7</span>
-                            With badges on the right
-                        </li>
-                    </ul> 
+            <div class="col-sm-12 col-md-12">
+                <div class="panel panel-primary black">
+                    <div class="panel-heading black">
+                        <h3 class="panel-title">Causali</h3>
+                        <a class="add-icon" ng-click="openModal('causal');">
+                            <i class="fa fa-inverse fa-plus-circle fa-2x"></i>
+                        </a>
+                    </div>
+                    <div class="panel-body max-height-fixed">
+                        <ul class="list-group">
+                            <li ng-class="{'active' : causal == selectedCausal}" class="list-group-item elem-entry" ng-repeat="causal in causalList">
+                                <div class="row" ng-click="$event.preventDefault(); selectCausal($index)">
+                                    <div class="col-sm-9 col-md-9">
+                                        <p style="margin-top: 10px">{{causal.label}}</p>                                
+                                    </div>
+                                    <div class="col-sm-3 col-md-3">
+                                        <a href="" class="entry-operation"  style="margin-right: -4px; margin-top: 6px" ng-click="">
+                                            <i ng-class="{'fa-inverse' : causal == selectedCausal}" class="fa fa-trash-o fa-2x"></i>
+                                        </a>
+                                        <a href="" class="entry-operation" style="margin-right: 8px; margin-top: 6px" ng-if="causal == selectedCausal" ng-click="openModal('causal', $index);">
+                                            <i ng-class="{'fa-inverse' : causal == selectedCausal}" class="fa fa-pencil fa-2x"></i>
+                                        </a>
+                                    </div>
+                                </div>                    
+                            </li>
+                        </ul> 
+                    </div>
                 </div>
             </div>
         </div>
-        
+
         <!--<div class="col-md-4 elem-container">
             <div class="panel panel-primary">
                 <div class="panel-heading">
@@ -69,3 +81,25 @@
         </div>-->
     </div>
 </div>
+<script type="text/ng-template" id="CategorizationElementModal.html">
+    <div class="modal-header">
+        <div ng-switch on="selectedElement.id">
+            <h3 ng-switch-when="typeof selectedElement.id != 'undefined'" class="modal-title">Modifica l'elemento selezionato</h3>
+            <h3 ng-switch-default>Scegli un nome per il nuovo elemento</h3>
+        </div>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label for="labelInput" class="col-sm-2 control-label">                           
+                    <span>Nome: </span>
+                </label>
+                <input id="labelInput" class="col-sm-8" type="text" required class="form-control" name="label" ng-model="selectedElement.label" placeholder="Nome per l'elemento"/> 
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</script>

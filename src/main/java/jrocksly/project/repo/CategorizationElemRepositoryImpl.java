@@ -26,7 +26,7 @@ public class CategorizationElemRepositoryImpl implements CategorizationElemRepos
 	public List<CategorizationElemDTO> getElementsList(Type type) {
 		StringBuilder b = new StringBuilder("select new jrocksly.project.dto.CategorizationElemDTO(c) from ")
 				.append(type.getEntityName())
-				.append(" c");
+				.append(" c order by c.label");
 		return em.createQuery(b.toString()).getResultList();
 	}
 
