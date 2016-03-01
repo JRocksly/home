@@ -54,7 +54,7 @@ public class CategorizationElemBean {
 		if(entityType.equals(Type.CASUAL)) {
 			return true;
 		}
-		Type parentType = Type.findParentEntity(type);
+		Type parentType = Type.findParentEntity(entityType.getEntityName());
 		if(entityType == null || parentType == null) {
 			throw new Exception();
 		}
@@ -68,7 +68,7 @@ public class CategorizationElemBean {
 	public void update(String type, String id, String label) throws Exception {
 		CategorizationElem c = getElement(type, id);
 		if(c != null) {
-			c.setLabel(label);
+			categorizationElemRepo.update(c, type, label);
 		}else{
 			throw new Exception();
 		}

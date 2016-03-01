@@ -1,12 +1,12 @@
-angular.module('static').factory('AdminService', ['$http', '$q', 'CAUSAL_URL', function($http, $q, CAUSAL_URL) {
+angular.module('static').factory('AdminService', ['$http', '$q', 'BASE_URL', function($http, $q, BASE_URL) {
 
 	var AdminService = {
         
-        getCausalList: function() {
+        getList: function(type) {
             var deferred = $q.defer();
             $http({
               method: 'GET',
-              url: CAUSAL_URL
+              url: BASE_URL + type
             }).then(
                 function(payload){
                     deferred.resolve(payload);
@@ -18,11 +18,27 @@ angular.module('static').factory('AdminService', ['$http', '$q', 'CAUSAL_URL', f
             return deferred.promise;
         },
 
-        createCausal: function(data) {
+        getChildsList: function(type, id) {
+            var deferred = $q.defer();
+            $http({
+              method: 'GET',
+              url: BASE_URL + type + '/childs/' + id
+            }).then(
+                function(payload){
+                    deferred.resolve(payload);
+                },
+                function(err){
+                    deferred.reject(err);
+                }
+            );
+            return deferred.promise;
+        },
+
+        create: function(type, data) {
             var deferred = $q.defer();
             $http({
               method: 'POST',
-              url: CAUSAL_URL,
+              url: BASE_URL + type,
               data: data
             }).then(
                 function(payload){
@@ -35,11 +51,11 @@ angular.module('static').factory('AdminService', ['$http', '$q', 'CAUSAL_URL', f
             return deferred.promise;
         },
 
-        editCausal: function(data) {
+        edit: function(type, data) {
             var deferred = $q.defer();
             $http({
               method: 'PUT',
-              url: CAUSAL_URL + '/id/' + data.id,
+              url: BASE_URL + type + '/id/' + data.id,
               data: data.label
             }).then(
                 function(payload){

@@ -1,8 +1,10 @@
 package jrocksly.project.model;
 
+import jrocksly.project.model.CategorizationElem.Type;
+
 public class CategorizationElemFactory {
 
-	public CategorizationElem getCategorizationElem(CategorizationElem.Type type, String label, Long parentId) {
+	public CategorizationElem getCategorizationElem(Type type, String label, Long parentId) {
 
 		if (type == null) {
 			return null;
@@ -16,11 +18,13 @@ public class CategorizationElemFactory {
 			Category c = new Category();
 			c.setLabel(label);
 			c.setParentId(parentId);
+			return c;
 		}
 		if (type.equals(CategorizationElem.Type.SUBCATEGORY)) {
 			SubCategory c = new SubCategory();
 			c.setLabel(label);
 			c.setParentId(parentId);
+			return c;
 		}
 		return null;
 		

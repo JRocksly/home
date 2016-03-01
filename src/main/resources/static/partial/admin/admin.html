@@ -6,7 +6,7 @@
             Utilizza i pannelli per creare le tue categorie
             <br>
             <small class="block">
-                Seleziona un elemento per visualizzare le sue sotto-categorie o creane uno nuovo con il <i class="fa fa-plus-circle fa-2x"></i>. 
+                Seleziona un elemento per visualizzare le sue sotto-categorie o creane uno nuovo con il <i class="fa fa-plus-circle fa-1x"></i>. 
             </small>
         </h3>
         
@@ -22,12 +22,12 @@
                     <div class="panel-body max-height-fixed">
                         <ul class="list-group">
                             <li ng-class="{'active' : causal == selectedCausal}" class="list-group-item elem-entry" ng-repeat="causal in causalList">
-                                <div class="row" ng-click="$event.preventDefault(); selectCausal($index)">
+                                <div class="row" ng-click="$event.preventDefault(); select('causal', $index)">
                                     <div class="col-sm-9 col-md-9">
                                         <p style="margin-top: 10px">{{causal.label}}</p>                                
                                     </div>
                                     <div class="col-sm-3 col-md-3">
-                                        <a href="" class="entry-operation"  style="margin-right: -4px; margin-top: 6px" ng-click="">
+                                        <a href="" class="entry-operation"  style="margin-right: -4px; margin-top: 6px" ng-click="remove('causal', $index);">
                                             <i ng-class="{'fa-inverse' : causal == selectedCausal}" class="fa fa-trash-o fa-2x"></i>
                                         </a>
                                         <a href="" class="entry-operation" style="margin-right: 8px; margin-top: 6px" ng-if="causal == selectedCausal" ng-click="openModal('causal', $index);">
@@ -42,45 +42,73 @@
             </div>
         </div>
 
-        <!--<div class="col-md-4 elem-container">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Categorie</h3>
-                </div>
-                <div class="panel-body">
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            Simple &lt;ul&gt; list
-                        </li>
-                        <li class="list-group-item">
-                            With badges on the right
-                        </li>
-                    </ul> 
+        <div class="col-md-4 elem-container">
+            <div class="col-sm-12 col-md-12">
+                <div ng-class="{'isdisabled' : !categoryActive}" class="panel panel-primary black">
+                    <div class="panel-heading black">
+                        <h3 class="panel-title">Categorie</h3>
+                        <a class="add-icon" ng-click="openModal('category');">
+                            <i class="fa fa-inverse fa-plus-circle fa-2x"></i>
+                        </a>
+                    </div>
+                    <div class="panel-body max-height-fixed">
+                        <ul class="list-group">
+                            <li ng-class="{'active' : category == selectedCategory}" class="list-group-item elem-entry" ng-repeat="category in categoryList">
+                                <div class="row" ng-click="$event.preventDefault(); select('category', $index)">
+                                    <div class="col-sm-9 col-md-9">
+                                        <p style="margin-top: 10px">{{category.label}}</p>                                
+                                    </div>
+                                    <div class="col-sm-3 col-md-3">
+                                        <a href="" class="entry-operation"  style="margin-right: -4px; margin-top: 6px" ng-click="remove('category', $index);">
+                                            <i ng-class="{'fa-inverse' : category == selectedCategory}" class="fa fa-trash-o fa-2x"></i>
+                                        </a>
+                                        <a href="" class="entry-operation" style="margin-right: 8px; margin-top: 6px" ng-if="category == selectedCategory" ng-click="openModal('category', $index);">
+                                            <i ng-class="{'fa-inverse' : category == selectedCategory}" class="fa fa-pencil fa-2x"></i>
+                                        </a>
+                                    </div>
+                                </div>                    
+                            </li>
+                        </ul> 
+                    </div>
                 </div>
             </div>
         </div>
         
         <div class="col-md-4 elem-container">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Sotto-Categorie</h3>
-                </div>
-                <div class="panel-body">
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            <span class="badge">14</span>
-                            Simple &lt;ul&gt; list
-                        </li>
-                        <li class="list-group-item">
-                            <span class="badge">7</span>
-                            With badges on the right
-                        </li>
-                    </ul> 
+            <div class="col-sm-12 col-md-12">
+                <div ng-class="{'isdisabled' : !subcategoryActive}" class="panel panel-primary black">
+                    <div class="panel-heading black">
+                        <h3 class="panel-title">Sotto-Categorie</h3>
+                        <a class="add-icon" ng-click="openModal('subcategory');">
+                            <i class="fa fa-inverse fa-plus-circle fa-2x"></i>
+                        </a>
+                    </div>
+                    <div class="panel-body max-height-fixed">
+                        <ul class="list-group">
+                            <li ng-class="{'active' : subcategory == selectedSubCategory}" class="list-group-item elem-entry" ng-repeat="subcategory in subcategoryList">
+                                <div class="row" ng-click="$event.preventDefault(); select('subcategory', $index)">
+                                    <div class="col-sm-9 col-md-9">
+                                        <p style="margin-top: 10px">{{subcategory.label}}</p>                                
+                                    </div>
+                                    <div class="col-sm-3 col-md-3">
+                                        <a href="" class="entry-operation"  style="margin-right: -4px; margin-top: 6px" ng-click="remove('subcategory', $index);">
+                                            <i ng-class="{'fa-inverse' : subcategory == selectedSubCategory}" class="fa fa-trash-o fa-2x"></i>
+                                        </a>
+                                        <a href="" class="entry-operation" style="margin-right: 8px; margin-top: 6px" ng-if="subcategory == selectedSubCategory" ng-click="openModal('subcategory', $index);">
+                                            <i ng-class="{'fa-inverse' : subcategory == selectedSubCategory}" class="fa fa-pencil fa-2x"></i>
+                                        </a>
+                                    </div>
+                                </div>                    
+                            </li>
+                        </ul> 
+                    </div>
                 </div>
             </div>
-        </div>-->
+        </div>
+
     </div>
 </div>
+
 <script type="text/ng-template" id="CategorizationElementModal.html">
     <div class="modal-header">
         <div ng-switch on="selectedElement.id">

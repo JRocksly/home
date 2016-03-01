@@ -36,7 +36,7 @@ public class CategorizationElemRepositoryImpl implements CategorizationElemRepos
 	public List<CategorizationElemDTO> getElementChildsList(Long id, Type type) {
 		StringBuilder b = new StringBuilder("select new jrocksly.project.dto.CategorizationElemDTO(c) from ")
 				.append(type.getChildEntityName()).append(" c, ")
-				.append(type.getEntityName()).append("p ")
+				.append(type.getEntityName()).append(" p ")
 				.append("where p.id = :IdParam and p.id = c.parentId");
 		return em.createQuery(b.toString())
 				.setParameter("IdParam", id)
@@ -60,7 +60,7 @@ public class CategorizationElemRepositoryImpl implements CategorizationElemRepos
 					.append("where p.id = :IdParam");
 			try {
 				CategorizationElem elem = (CategorizationElem) em.createQuery(b.toString())
-					.setParameter("parentIdParam", parentId)
+					.setParameter("IdParam", parentId)
 					.getSingleResult();
 				return null != elem;
 			} catch (Exception e) {
@@ -102,6 +102,25 @@ public class CategorizationElemRepositoryImpl implements CategorizationElemRepos
 		return em.createQuery(b.toString())
 			.setParameter("idParam", id)
 			.getResultList().isEmpty();
+	}
+
+	@Override
+	public void update(CategorizationElem c, String type, String label) throws Exception {
+		StringBuilder b = new StringBuilder("update ");
+		if(CategorizationElem.Type.CASUAL.getRestApi().equals(type)) {
+			b.append("Causal c ");
+		}else if(CategorizationElem.Type.CATEGORY.getRestApi().equals(type)) {
+			b.append("Category c ");
+		}else if(CategorizationElem.Type.SUBCATEGORY.getRestApi().equals(type)) {
+			b.append("SubCategory c ");
+		}else{
+			throw new Exception();
+		}
+		b.append("set c.label = :labelParam where c.id = :idParam");
+		em.createQuery(b.toString())
+			.setParameter("labelParam", label)
+			.setParameter("idParam", c.getId())
+			.executeUpdate();
 	}
 
 }

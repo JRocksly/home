@@ -16,7 +16,7 @@ import jrocksly.project.bean.CategorizationElemBean;
 import jrocksly.project.dto.CategorizationElemDTO;
 
 @Controller
-@RequestMapping(value = "/rest/element")
+@RequestMapping(value = "/rest/elements")
 public class CategorizationElemService {
 	
 	@Autowired
@@ -61,7 +61,6 @@ public class CategorizationElemService {
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	
-	//TODO non salva sul db... sistemare gli update delete e chi piu' ne ha...
 	@RequestMapping(value={"/{type}/id/{id}"}, method=RequestMethod.PUT, consumes={"application/json"}, produces={"application/json"})
 	public ResponseEntity<?> edit(@PathVariable("type") String type, 
 			@PathVariable("id") String id, 

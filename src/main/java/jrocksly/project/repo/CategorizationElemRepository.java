@@ -22,4 +22,6 @@ public interface CategorizationElemRepository {
 	
 	boolean isUsed(Type type, Long id) throws Exception;
 
+	void update(CategorizationElem c, String type, String label) throws Exception;
+
 }
