@@ -1,7 +1,5 @@
 angular.module('static').constant("BASE_URL","/rest/elements/");
 
-//TODO Non sta funzionando il disable degli elementi non selezionati...
-//TODO Collegare il delete
 angular.module('static').controller('AdminCtrl',['$scope', 'AdminService', '$uibModal', function($scope, AdminService, $uibModal){
 
 	$scope.causalList = [];
@@ -12,8 +10,17 @@ angular.module('static').controller('AdminCtrl',['$scope', 'AdminService', '$uib
 	$scope.selectedCategory = {};
 	$scope.selectedSubCategory = {};
 
-	$scope.categoryActive = false;
-	$scope.subcategoryActive = false;
+	var categoryActive = false;
+	var subcategoryActive = false;
+
+	$scope.isActive = function(type) {
+		if(type === 'category') {
+			return categoryActive;
+		}else if(type === 'subcategory') {
+			return subcategoryActive;
+		}
+		return false;
+	};
 
 	$scope.getList = function(type) {
 		AdminService.getList(type).then(
@@ -24,8 +31,8 @@ angular.module('static').controller('AdminCtrl',['$scope', 'AdminService', '$uib
 					$scope.subcategoryList = [];
 					$scope.selectedCategory = {};
 					$scope.selectedSubCategory = {};
-					$scope.categoryActive = false;
-					$scope.subcategoryActive = false;
+					categoryActive = false;
+					subcategoryActive = false;
 				}
 			},
 			function(err){
@@ -56,12 +63,12 @@ angular.module('static').controller('AdminCtrl',['$scope', 'AdminService', '$uib
 					$scope.subcategoryList = [];
 					$scope.selectedCategory = {};
 					$scope.selectedSubCategory = {};
-					$scope.categoryActive = true;
-					$scope.subcategoryActive = false;
+					categoryActive = true;
+					subcategoryActive = false;
 				}else if(type === 'category') {
 					$scope.subcategoryList = payload.data;
 					$scope.selectedSubCategory = {};
-					$scope.subcategoryActive = true;
+					subcategoryActive = true;
 				}
 			},
 			function(err){
@@ -124,13 +131,7 @@ angular.module('static').controller('AdminCtrl',['$scope', 'AdminService', '$uib
 
 				AdminService.create(type, selectedElement).then(
 					function(payload){
-						if(type === 'causal') {
-							$scope.getList(type);
-						}else if(type === 'category') {
-							$scope.getChildsList('causal', selectedElement.parentId);
-						}else if(type === 'subcategory') {
-							$scope.getChildsList('category', selectedElement.parentId);
-						}
+						reload(type, selectedElement.parentId);
 					},
 					function(err){
 						console.log(err);
@@ -141,6 +142,36 @@ angular.module('static').controller('AdminCtrl',['$scope', 'AdminService', '$uib
 
 		});
 
+	};
+
+	$scope.remove = function(type, index) {
+		var toRemove = {};
+		if(type === 'causal') {
+			toRemove = $scope.causalList[index];
+		}else if(type === 'category') {
+			toRemove = $scope.categoryList[index];
+		}else if(type === 'subcategory') {
+			toRemove = $scope.subcategoryList[index];
+		}
+		console.log(toRemove);
+		AdminService.delete(type, toRemove.id).then(
+			function(payload) {
+				reload(type, toRemove.parentId);
+			},
+			function(err){
+				console.log(err);
+			}
+			);
+	};
+
+	var reload = function(type, id) {
+		if(type === 'causal') {
+			$scope.getList(type);
+		}else if(type === 'category') {
+			$scope.getChildsList('causal', id);
+		}else if(type === 'subcategory') {
+			$scope.getChildsList('category', id);
+		}
 	};
 
 }]);

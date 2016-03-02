@@ -68,6 +68,22 @@ angular.module('static').factory('AdminService', ['$http', '$q', 'BASE_URL', fun
             return deferred.promise;
         },
 
+        delete: function(type, id) {
+            var deferred = $q.defer();
+            $http({
+              method: 'DELETE',
+              url: BASE_URL + type + '/id/' + id,
+            }).then(
+                function(payload){
+                    deferred.resolve(payload);
+                },
+                function(err){
+                    deferred.reject(err);
+                }
+            );
+            return deferred.promise;
+        }
+
     };
 
 	return AdminService;

@@ -44,7 +44,7 @@
 
         <div class="col-md-4 elem-container">
             <div class="col-sm-12 col-md-12">
-                <div ng-class="{'isdisabled' : !categoryActive}" class="panel panel-primary black">
+                <div ng-class="{'isdisabled' : !isActive('category')}" class="panel panel-primary black">
                     <div class="panel-heading black">
                         <h3 class="panel-title">Categorie</h3>
                         <a class="add-icon" ng-click="openModal('category');">
@@ -76,7 +76,7 @@
         
         <div class="col-md-4 elem-container">
             <div class="col-sm-12 col-md-12">
-                <div ng-class="{'isdisabled' : !subcategoryActive}" class="panel panel-primary black">
+                <div ng-class="{'isdisabled' : !isActive('subcategory')}" class="panel panel-primary black">
                     <div class="panel-heading black">
                         <h3 class="panel-title">Sotto-Categorie</h3>
                         <a class="add-icon" ng-click="openModal('subcategory');">

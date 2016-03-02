@@ -99,7 +99,7 @@ public class CategorizationElemRepositoryImpl implements CategorizationElemRepos
 		}else{
 			throw new Exception();
 		}
-		return em.createQuery(b.toString())
+		return !em.createQuery(b.toString())
 			.setParameter("idParam", id)
 			.getResultList().isEmpty();
 	}
