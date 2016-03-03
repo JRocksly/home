@@ -99,6 +99,7 @@ angular.module('static').controller('AdminCtrl',['$scope', 'AdminService', '$uib
 		
 		var modalInstance = $uibModal.open({
 			animation: true,
+			size: 'sm',
 			templateUrl: 'CategorizationElementModal.html',
 			controller: 'CategorizationElementModalCtrl',
 			resolve: {

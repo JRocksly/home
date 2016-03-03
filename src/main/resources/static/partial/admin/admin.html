@@ -7,6 +7,8 @@
             <br>
             <small class="block">
                 Seleziona un elemento per visualizzare le sue sotto-categorie o creane uno nuovo con il <i class="fa fa-plus-circle fa-1x"></i>. 
+                <br>
+                Costruisci il tuo albero come pi&ugrave; preferisci.
             </small>
         </h3>
         
@@ -113,21 +115,31 @@
     <div class="modal-header">
         <div ng-switch on="selectedElement.id">
             <h3 ng-switch-when="typeof selectedElement.id != 'undefined'" class="modal-title">Modifica l'elemento selezionato</h3>
-            <h3 ng-switch-default>Scegli un nome per il nuovo elemento</h3>
+            <h3 style="text-align: center;" ng-switch-default>Scegli un nome</h3>
         </div>
     </div>
     <div class="modal-body">
-        <form class="form-horizontal">
-            <div class="form-group">
-                <label for="labelInput" class="col-sm-2 control-label">                           
-                    <span>Nome: </span>
-                </label>
-                <input id="labelInput" class="col-sm-8" type="text" required class="form-control" name="label" ng-model="selectedElement.label" placeholder="Nome per l'elemento"/> 
-            </div>
-        </form>
-    </div>
+        <form name="newElement" novalidate>
+          <div class="form-group">
+            <input required name="name" ng-minlength="4" ng-maxlength="12" ng-model="selectedElement.label" type="text" class="form-control" id="name" placeholder="Nome per l'elemento">
+            <div role="alert">
+                <span class="error" ng-show="!(!name.$error.required || name.$pristine)">
+                    Inserire un nome!
+                </span>
+                <span class="error" ng-show="name.$error.minlength">
+                    Inserire minimo 4 caratteri!
+                </span>
+                <span class="error" ng-show="name.$error.maxlength">
+                    Inserire massimo 12 caratteri!
+                </span>
+            </div>          
+        </div>                                  
+    </form>
     <div class="modal-footer">
-        <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
-        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        <div style="text-align: center;"> 
+            <button class="btn black btn-primary" ng-disabled="newElement.$invalid" type="button" ng-click="ok()">OK</button>
+            <button class="btn black btn-primary" type="button" ng-click="cancel()">Cancel</button>
+        </div>
     </div>
+</div>
 </script>
