@@ -121,7 +121,7 @@
     <div class="modal-body">
         <form name="newElement" novalidate>
           <div class="form-group">
-            <input required name="name" ng-minlength="4" ng-maxlength="12" ng-model="selectedElement.label" type="text" class="form-control" id="name" placeholder="Nome per l'elemento">
+            <input required name="name" ng-minlength="3" ng-maxlength="20" ng-model="selectedElement.label" type="text" class="form-control" id="name" placeholder="Nome per l'elemento">
             <div role="alert">
                 <span class="error" ng-show="!(!name.$error.required || name.$pristine)">
                     Inserire un nome!
@@ -133,13 +133,13 @@
                     Inserire massimo 12 caratteri!
                 </span>
             </div>          
-        </div>                                  
-    </form>
+          </div>                                  
+        </form>
+    </div>
     <div class="modal-footer">
         <div style="text-align: center;"> 
-            <button class="btn black btn-primary" ng-disabled="newElement.$invalid" type="button" ng-click="ok()">OK</button>
-            <button class="btn black btn-primary" type="button" ng-click="cancel()">Cancel</button>
+            <button class="btn btn-black adjust" ng-disabled="newElement.$invalid" type="button" ng-click="ok()">OK</button>
+            <button class="btn btn-black adjust" type="button" ng-click="cancel()">Cancel</button>
         </div>
     </div>
-</div>
 </script>

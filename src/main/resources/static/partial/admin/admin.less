@@ -1,3 +1,5 @@
+@basicColor: #222222;
+
 .isdisabled {
 opacity: .2;
 pointer-events: none;
@@ -13,16 +15,16 @@ overflow-y: scroll!important;
 }
 
 .panel-primary.black {
-border-color: #222222!important;
+border-color: @basicColor!important;
 }
 
 .panel-heading.black {
-background-color: #222222!important;
-border-color: #222222!important;
+background-color: @basicColor!important;
+border-color: @basicColor!important;
 }
 
 .add-icon {
-color: #222222!important;
+color: @basicColor!important;
 position: absolute;
 right: 24px;
 top: 5px;
@@ -30,19 +32,17 @@ cursor: pointer;
 }
 
 .elem-entry.active {
-background:#222222!important;
-border-color: #222222!important;
+background:@basicColor!important;
+border-color: @basicColor!important;
 }
 
 .entry-operation {
-color: #222222!important;
+color: @basicColor!important;
 float:right;
 cursor: pointer;
 }
 
-.btn.black {
+.btn.btn-black.adjust {
 margin-top: 10px;
 width: 100px;
-background-color: #222222!important;
-border-color: #222222!important;
 }

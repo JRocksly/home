@@ -1,0 +1,10 @@
+<div class="modal-body alertMessage" ng-class="{'success' : alert.type == 'success', 'info' : alert.type == 'info', 'warning' : alert.type == 'warning', 'error' : alert.type == 'error'}">
+	<i ng-if="alert.type == 'success'" style="color: #5cb85c" class="fa fa-check fa-2x success-icon"></i>
+	<i ng-if="alert.type == 'info'" class="fa fa-info fa-2x info-icon"></i>
+	<i ng-if="alert.type == 'warning'" style="color: #eea236" class="fa fa-check fa-2x success-icon"></i>
+	<i ng-if="alert.type == 'error'" style="color: #d43f3a" class="fa fa-times fa-2x error-icon"></i>
+    <font size="3">  {{alert.message}}</font>
+    <div class="closeAlert"> 
+        <button class="btn" ng-class="{'btn-success' : alert.type == 'success', 'bnt-black' : alert.type == 'info', 'btn-warning' : alert.type == 'warning', 'btn-danger' : alert.type == 'error'}" type="button" ng-click="close()">Chiudi</button>
+    </div>
+</div>

@@ -27,6 +27,7 @@ public class Outgoing {
 
 	private Long subcategoryId;
 
+	@NotNull
 	private String description;
 
 	@Temporal(TemporalType.DATE)

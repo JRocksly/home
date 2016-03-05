@@ -1,6 +1,6 @@
 angular.module('static').constant("BASE_URL","/rest/elements/");
 
-angular.module('static').controller('AdminCtrl',['$scope', 'AdminService', '$uibModal', function($scope, AdminService, $uibModal){
+angular.module('static').controller('AdminCtrl',['$scope', 'AdminService', '$uibModal', 'alertService', function($scope, AdminService, $uibModal, alertService){
 
 	$scope.causalList = [];
 	$scope.categoryList = [];
@@ -36,9 +36,9 @@ angular.module('static').controller('AdminCtrl',['$scope', 'AdminService', '$uib
 				}
 			},
 			function(err){
-				console.log(err);
+				alertService.openAlert("error", "Non ho idea di cosa sia successo O_O");
 			}
-			);
+		);
 	};
 
 	$scope.getList('causal');
@@ -72,9 +72,9 @@ angular.module('static').controller('AdminCtrl',['$scope', 'AdminService', '$uib
 				}
 			},
 			function(err){
-				console.log(err);
+				alertService.openAlert("error", "Non ho idea di cosa sia successo O_O");
 			}
-			);
+		);
 	};
 
 	$scope.openModal = function(type, index) {
@@ -124,9 +124,9 @@ angular.module('static').controller('AdminCtrl',['$scope', 'AdminService', '$uib
 						}
 					},
 					function(err){
-						console.log(err);
+						alertService.openAlert("error", "Non ho idea di cosa sia successo O_O");
 					}
-					);
+				);
 
 			}else{
 
@@ -135,9 +135,9 @@ angular.module('static').controller('AdminCtrl',['$scope', 'AdminService', '$uib
 						reload(type, selectedElement.parentId);
 					},
 					function(err){
-						console.log(err);
+						alertService.openAlert("error", "Non ho idea di cosa sia successo O_O");
 					}
-					);
+				);
 				
 			}
 
@@ -160,9 +160,9 @@ angular.module('static').controller('AdminCtrl',['$scope', 'AdminService', '$uib
 				reload(type, toRemove.parentId);
 			},
 			function(err){
-				console.log(err);
+				alertService.openAlert("error", "Non ho idea di cosa sia successo O_O");
 			}
-			);
+		);
 	};
 
 	var reload = function(type, id) {

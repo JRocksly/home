@@ -1,4 +1,4 @@
-angular.module('static').factory('AdminService', ['$http', '$q', 'BASE_URL', function($http, $q, BASE_URL) {
+angular.module('static').factory('AdminService', ['$http', '$q', 'BASE_URL', 'alertService', function($http, $q, BASE_URL, alertService) {
 
 	var AdminService = {
         
@@ -12,7 +12,9 @@ angular.module('static').factory('AdminService', ['$http', '$q', 'BASE_URL', fun
                     deferred.resolve(payload);
                 },
                 function(err){
-                    deferred.reject(err);
+                    if(!errorHandling(err)) {
+                        deferred.reject(err);
+                    }
                 }
             );
             return deferred.promise;
@@ -28,7 +30,9 @@ angular.module('static').factory('AdminService', ['$http', '$q', 'BASE_URL', fun
                     deferred.resolve(payload);
                 },
                 function(err){
-                    deferred.reject(err);
+                   if(!errorHandling(err)) {
+                        deferred.reject(err);
+                    }
                 }
             );
             return deferred.promise;
@@ -45,7 +49,9 @@ angular.module('static').factory('AdminService', ['$http', '$q', 'BASE_URL', fun
                     deferred.resolve(payload);
                 },
                 function(err){
-                    deferred.reject(err);
+                    if(!errorHandling(err)) {
+                        deferred.reject(err);
+                    }
                 }
             );
             return deferred.promise;
@@ -62,7 +68,9 @@ angular.module('static').factory('AdminService', ['$http', '$q', 'BASE_URL', fun
                     deferred.resolve(payload);
                 },
                 function(err){
-                    deferred.reject(err);
+                    if(!errorHandling(err)) {
+                        deferred.reject(err);
+                    }
                 }
             );
             return deferred.promise;
@@ -78,12 +86,36 @@ angular.module('static').factory('AdminService', ['$http', '$q', 'BASE_URL', fun
                     deferred.resolve(payload);
                 },
                 function(err){
-                    deferred.reject(err);
+                    if(!errorHandling(err)) {
+                        deferred.reject(err);
+                    }
                 }
             );
             return deferred.promise;
         }
 
+    };
+
+    var errorHandling = function(err) {
+        if(err.status === 404) {
+            serverNonRaggiungibile();
+            return true;
+        }else if(err.status === 500) {
+            erroreInterno();
+            return true;
+        }else if(err.status === 400 || err.status === 409) {
+            alertService.openAlert(err.data.type, err.data.message);
+            return true;
+        }
+        return false;
+    };
+
+    var serverNonRaggiungibile = function() {
+        alertService.openAlert("error", "Qualcosa non va sul server...!");
+    };
+
+    var erroreInterno = function() {
+        alertService.openAlert("error", "Errore brutto! Chiedi spiegazioni!");
     };
 
 	return AdminService;
