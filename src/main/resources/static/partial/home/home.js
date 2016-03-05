@@ -6,14 +6,14 @@ angular.module('static').controller('HomeCtrl', ['$scope', 'alertService', funct
 
 	$scope.info = function() {
 		alertService.openAlert("info", "Hey! Let me tell you something!");
-	}
+	};
 
 	$scope.warning = function() {
 		alertService.openAlert("warning", "Watch out!");
-	}
+	};
 
 	$scope.error = function() {
 		alertService.openAlert("error", "I am an  epic fail!");
-	}
+	};
 
 }]);

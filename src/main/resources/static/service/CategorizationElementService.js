@@ -1,6 +1,8 @@
-angular.module('static').factory('AdminService', ['$http', '$q', 'BASE_URL', 'alertService', function($http, $q, BASE_URL, alertService) {
+angular.module('static').constant("BASE_URL","/rest/elements/");
 
-	var AdminService = {
+angular.module('static').factory('CategorizationElementService', ['$http', '$q', 'BASE_URL', 'alertService', function($http, $q, BASE_URL, alertService) {
+
+	var CategorizationElementService = {
         
         getList: function(type) {
             var deferred = $q.defer();
@@ -118,5 +120,6 @@ angular.module('static').factory('AdminService', ['$http', '$q', 'BASE_URL', 'al
         alertService.openAlert("error", "Errore brutto! Chiedi spiegazioni!");
     };
 
-	return AdminService;
+	return CategorizationElementService;
+
 }]);

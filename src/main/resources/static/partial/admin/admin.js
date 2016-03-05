@@ -1,6 +1,6 @@
 angular.module('static').constant("BASE_URL","/rest/elements/");
 
-angular.module('static').controller('AdminCtrl',['$scope', 'AdminService', '$uibModal', 'alertService', function($scope, AdminService, $uibModal, alertService){
+angular.module('static').controller('AdminCtrl',['$scope', 'CategorizationElementService', '$uibModal', 'alertService', function($scope, CategorizationElementService, $uibModal, alertService){
 
 	$scope.causalList = [];
 	$scope.categoryList = [];
@@ -23,7 +23,7 @@ angular.module('static').controller('AdminCtrl',['$scope', 'AdminService', '$uib
 	};
 
 	$scope.getList = function(type) {
-		AdminService.getList(type).then(
+		CategorizationElementService.getList(type).then(
 			function(payload){
 				if(type === 'causal') {
 					$scope.causalList = payload.data;
@@ -56,7 +56,7 @@ angular.module('static').controller('AdminCtrl',['$scope', 'AdminService', '$uib
 	};
 
 	$scope.getChildsList = function(type, id) {
-		AdminService.getChildsList(type, id).then(
+		CategorizationElementService.getChildsList(type, id).then(
 			function(payload){
 				if(type === 'causal') {
 					$scope.categoryList = payload.data;
@@ -113,7 +113,7 @@ angular.module('static').controller('AdminCtrl',['$scope', 'AdminService', '$uib
 
 			if(typeof selectedElement.id !== 'undefined') {
 				
-				AdminService.edit(type, selectedElement).then(
+				CategorizationElementService.edit(type, selectedElement).then(
 					function(payload) {
 						if(type === 'causal') {
 							$scope.causalList[index].label =  selectedElement.label;
@@ -130,7 +130,7 @@ angular.module('static').controller('AdminCtrl',['$scope', 'AdminService', '$uib
 
 			}else{
 
-				AdminService.create(type, selectedElement).then(
+				CategorizationElementService.create(type, selectedElement).then(
 					function(payload){
 						reload(type, selectedElement.parentId);
 					},
@@ -155,7 +155,7 @@ angular.module('static').controller('AdminCtrl',['$scope', 'AdminService', '$uib
 			toRemove = $scope.subcategoryList[index];
 		}
 		console.log(toRemove);
-		AdminService.delete(type, toRemove.id).then(
+		CategorizationElementService.delete(type, toRemove.id).then(
 			function(payload) {
 				reload(type, toRemove.parentId);
 			},

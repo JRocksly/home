@@ -13,7 +13,7 @@
         </h3>
         
         <div class="col-md-4 elem-container">
-            <div class="col-sm-12 col-md-12">
+            <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="panel panel-primary black">
                     <div class="panel-heading black">
                         <h3 class="panel-title">Causali</h3>
@@ -25,10 +25,10 @@
                         <ul class="list-group">
                             <li ng-class="{'active' : causal == selectedCausal}" class="list-group-item elem-entry" ng-repeat="causal in causalList">
                                 <div class="row" ng-click="$event.preventDefault(); select('causal', $index)">
-                                    <div class="col-sm-9 col-md-9">
+                                    <div class="col-xs-9 col-sm-9 col-md-9">
                                         <p style="margin-top: 10px">{{causal.label}}</p>                                
                                     </div>
-                                    <div class="col-sm-3 col-md-3">
+                                    <div class="col-xs-3 col-sm-3 col-md-3">
                                         <a href="" class="entry-operation"  style="margin-right: -4px; margin-top: 6px" ng-click="remove('causal', $index);">
                                             <i ng-class="{'fa-inverse' : causal == selectedCausal}" class="fa fa-trash-o fa-2x"></i>
                                         </a>
@@ -45,7 +45,7 @@
         </div>
 
         <div class="col-md-4 elem-container">
-            <div class="col-sm-12 col-md-12">
+            <div class="col-xs-12 col-sm-12 col-md-12">
                 <div ng-class="{'isdisabled' : !isActive('category')}" class="panel panel-primary black">
                     <div class="panel-heading black">
                         <h3 class="panel-title">Categorie</h3>
@@ -57,10 +57,10 @@
                         <ul class="list-group">
                             <li ng-class="{'active' : category == selectedCategory}" class="list-group-item elem-entry" ng-repeat="category in categoryList">
                                 <div class="row" ng-click="$event.preventDefault(); select('category', $index)">
-                                    <div class="col-sm-9 col-md-9">
+                                    <div class="col-xs-9 col-sm-9 col-md-9">
                                         <p style="margin-top: 10px">{{category.label}}</p>                                
                                     </div>
-                                    <div class="col-sm-3 col-md-3">
+                                    <div class="col-xs-3 col-sm-3 col-md-3">
                                         <a href="" class="entry-operation"  style="margin-right: -4px; margin-top: 6px" ng-click="remove('category', $index);">
                                             <i ng-class="{'fa-inverse' : category == selectedCategory}" class="fa fa-trash-o fa-2x"></i>
                                         </a>
@@ -77,7 +77,7 @@
         </div>
         
         <div class="col-md-4 elem-container">
-            <div class="col-sm-12 col-md-12">
+            <div class="col-xs-12 col-sm-12 col-md-12">
                 <div ng-class="{'isdisabled' : !isActive('subcategory')}" class="panel panel-primary black">
                     <div class="panel-heading black">
                         <h3 class="panel-title">Sotto-Categorie</h3>
@@ -89,10 +89,10 @@
                         <ul class="list-group">
                             <li ng-class="{'active' : subcategory == selectedSubCategory}" class="list-group-item elem-entry" ng-repeat="subcategory in subcategoryList">
                                 <div class="row" ng-click="$event.preventDefault(); select('subcategory', $index)">
-                                    <div class="col-sm-9 col-md-9">
+                                    <div class="col-xs-9 col-sm-9 col-md-9">
                                         <p style="margin-top: 10px">{{subcategory.label}}</p>                                
                                     </div>
-                                    <div class="col-sm-3 col-md-3">
+                                    <div class="col-xs-3 col-sm-3 col-md-3">
                                         <a href="" class="entry-operation"  style="margin-right: -4px; margin-top: 6px" ng-click="remove('subcategory', $index);">
                                             <i ng-class="{'fa-inverse' : subcategory == selectedSubCategory}" class="fa fa-trash-o fa-2x"></i>
                                         </a>
@@ -112,14 +112,9 @@
 </div>
 
 <script type="text/ng-template" id="CategorizationElementModal.html">
-    <div class="modal-header">
-        <div ng-switch on="selectedElement.id">
-            <h3 ng-switch-when="typeof selectedElement.id != 'undefined'" class="modal-title">Modifica l'elemento selezionato</h3>
-            <h3 style="text-align: center;" ng-switch-default>Scegli un nome</h3>
-        </div>
-    </div>
     <div class="modal-body">
-        <form name="newElement" novalidate>
+        <h3 style="text-align: center; margin-top: -10px;">Scegli un nome</h3>
+        <form style="padding-top: 10px;" name="newElement" novalidate>
           <div class="form-group">
             <input required name="name" ng-minlength="3" ng-maxlength="20" ng-model="selectedElement.label" type="text" class="form-control" id="name" placeholder="Nome per l'elemento">
             <div role="alert">
@@ -127,17 +122,15 @@
                     Inserire un nome!
                 </span>
                 <span class="error" ng-show="name.$error.minlength">
-                    Inserire minimo 4 caratteri!
+                    Inserire minimo 3 caratteri!
                 </span>
                 <span class="error" ng-show="name.$error.maxlength">
-                    Inserire massimo 12 caratteri!
+                    Inserire massimo 20 caratteri!
                 </span>
             </div>          
           </div>                                  
         </form>
-    </div>
-    <div class="modal-footer">
-        <div style="text-align: center;"> 
+         <div style="text-align: center;"> 
             <button class="btn btn-black adjust" ng-disabled="newElement.$invalid" type="button" ng-click="ok()">OK</button>
             <button class="btn btn-black adjust" type="button" ng-click="cancel()">Cancel</button>
         </div>
