@@ -17,7 +17,7 @@ import jrocksly.project.model.SubCategory;
 @JsonIgnoreProperties("format")
 public class OutgoingDTO {
 	
-	DateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.ITALIAN);
+	DateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.ITALIAN);
 	
 	public String id;
 	public String causalId;

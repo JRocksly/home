@@ -1,0 +1,66 @@
+<div class="col-xs-12 col-sm-12 col-md-12" ng-controller="ExpenseCtrl">
+
+  <h1>Nuova spesa</h1>
+  <h3>
+    Compila i dati per inserire la nuova spesa in archivio
+    <br>
+    <small class="block">
+      I campi annotati con <font color="red">*</font> sono obblicatori e devono dunque essere valorizzati affinch&egrave; l'inserimento dello spesa nel sistema vada a buon fine. 
+    </small>
+  </h3>
+  <div class="well" style="margin-top: 30px;">
+    <form id="new-outgoing-form" name="insertOutgoing" novalidate>
+      <div class="col-xs-6 col-sm-6 col-md-6">
+        <div class="form-group">
+          <label for="desc">Descrizione: <font color="red">*</font></label>
+          <input required name="desc" ng-model="outgoing.description" ng-minlength="3" ng-maxlength="30"  type="text" class="form-control" id="desc" placeholder='Ad esempio "Ristorate Giapponese", "Bolletta ENEL", etc...'>
+          <div role="alert">
+            <span class="error" ng-show="!(!desc.$error.required || desc.$pristine)">
+              Inserire una descrizione!
+            </span>
+            <span class="error" ng-show="desc.$error.minlength">
+              Inserire minimo 3 caratteri!
+            </span>
+            <span class="error" ng-show="desc.$error.maxlength">
+              Inserire massimo 30 caratteri!
+            </span>
+          </div>   
+        </div>
+        <div class="form-group">
+          <label for="date">Data: <font color="red">*</font></label>
+          <span class="datePickerRight">
+            <p class="input-group">
+              <input required name="date" id="date" type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="outgoing.date" ng-model-options="{timezone: timezone}" is-open="popup.opened" datepicker-options="dateOptions" close-text="Chiudi" current-text="Oggi" clear-text="Reset" popup-placement="auto bottom-right" ng-change='validateDate()' ng-class="{'invalid-date' : !isValidDate()}"} date-parser/>
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open()"><i class="fa fa-calendar fa-1x"></i></button>
+              </span>
+            </p>
+          </span>
+        </div>
+     </div>  
+     <div class="col-xs-6 col-sm-6 col-md-6">
+      <div class="form-group">
+        <label for="causalOutgoing">Causale: <font color="red">*</font></label>
+        <select required ng-model="selectedCausal" class="form-control" id="causalOutgoing" ng-options="causal.label for causal in causalList" ng-change="select('causal')">
+         <option value='' disabled>- Seleziona una causale -</option> 
+       </select>
+     </div>
+     <div class="form-group" ng-class="{'isdisabled' : !isActive('category')}">
+        <label for="categoryOutgoing">Categoria:</label>
+        <select ng-model="selectedCategory" class="form-control" id="categoryOutgoing" ng-options="category.label for category in categoryList" ng-change="select('category')">
+         <option value='' disabled>- Seleziona una categoria -</option>
+         <option value='' disabled>- Nessuna categoria -</option>             
+       </select>
+     </div>
+     <div class="form-group" ng-class="{'isdisabled' : !isActive('subcategory')}">
+        <label for="subcategoryOutgoing">Sotto-categoria:</label>
+        <select ng-model="selectedSubcategory" class="form-control" id="subcategoryOutgoing" ng-options="subcategory.label for subcategory in subcategoryList">
+         <option value='' disabled>- Seleziona una Sotto-categoria -</option>
+         <option value='' disabled>- Nessuna sotto-categoria -</option>            
+       </select>
+     </div>   
+   </div>      
+ </form>
+ <button type="button" ng-disabled="insertOutgoing.$invalid" class="btn btn-primary"><i class="fa fa-save"></i> Salva</button> 
+</div>           
+</div>

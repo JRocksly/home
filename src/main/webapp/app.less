@@ -1,0 +1,191 @@
+@import "bower_components/bootstrap/less/bootstrap.less";
+//@import "bower_components/bootstrap/less/theme.less";
+@import "bower_components/font-awesome/less/font-awesome.less";
+@fa-font-path: "bower_components/font-awesome/fonts";
+
+/* Component LESS */
+@import "partial/home/home.less";
+@import "partial/admin/admin.less";
+@import "partial/expense/expense.less";
+@import "directive/navbar/navbar.less";
+@import "directive/panels/panels.less";
+@import "directive/alert/alert.less";
+/* Add Component LESS Above */
+
+/* Required for Angular UI Bootstrap */
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+/* Personal preference for BS modal.  The LESS below makes the backdrop white and
+causes the modal to fade in rather than slide in. */
+//@modal-backdrop-bg: white;
+//.modal {
+//	&.fade {
+//		.transition(opacity .3s);
+//	}
+//	&.fade .modal-dialog {
+//		.translate(0,0);
+//	}
+//}
+
+@font-face {
+font-family: 'Hanna';
+font-style: normal;
+font-weight: 400;
+src: url(//fonts.gstatic.com/ea/hanna/v3/BM-HANNA.eot);
+src:
+url(//fonts.gstatic.com/ea/hanna/v3/BM-HANNA.eot?#iefix) format('embedded-opentype'),
+url(//fonts.gstatic.com/ea/hanna/v3/BM-HANNA.woff2) format('woff2'),
+url(//fonts.gstatic.com/ea/hanna/v3/BM-HANNA.woff) format('woff'),
+url(//fonts.gstatic.com/ea/hanna/v3/BM-HANNA.ttf) format('truetype');
+}
+
+
+*, * h1, * h2, * h3, * h4, * h5, * h6 { font-family: 'Hanna', 'Malgun Gothic'; }
+
+body{
+overflow-x: hidden;
+}
+
+::-webkit-scrollbar { 
+    display: none; 
+}
+
+li { 
+cursor: pointer; 
+cursor: hand; 
+}
+
+.full-width{
+width: 100%;
+display: block;
+}
+
+.no-lateral-margin {
+margin-left: 0px;
+margin-right: 0px;
+}
+
+.isdisabled {
+opacity: .2;
+pointer-events: none;
+}
+
+/* Absolute Center Spinner */
+.loading {
+position: fixed;
+z-index: 999;
+height: 2em;
+width: 2em;
+overflow: show;
+margin: auto;
+top: 0;
+left: 0;
+bottom: 0;
+right: 0;
+}
+
+/* Transparent Overlay */
+.loading:before {
+content: '';
+display: block;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0,0,0,0.3);
+}
+
+/* :not(:required) hides these rules from IE9 and below */
+.loading:not(:required) {
+/* hide "loading..." text */
+font: 0/0 a;
+color: transparent;
+text-shadow: none;
+background-color: transparent;
+border: 0;
+}
+
+.loading:not(:required):after {
+content: '';
+display: block;
+font-size: 10px;
+width: 1em;
+height: 1em;
+margin-top: -0.5em;
+-webkit-animation: spinner 1500ms infinite linear;
+-moz-animation: spinner 1500ms infinite linear;
+-ms-animation: spinner 1500ms infinite linear;
+-o-animation: spinner 1500ms infinite linear;
+animation: spinner 1500ms infinite linear;
+border-radius: 0.5em;
+-webkit-box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0, rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.5) -1.5em 0 0 0, rgba(0, 0, 0, 0.5) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;
+box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0, rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) -1.5em 0 0 0, rgba(0, 0, 0, 0.75) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;
+}
+
+/* Animation */
+
+@-webkit-keyframes spinner {
+0% {
+-webkit-transform: rotate(0deg);
+-moz-transform: rotate(0deg);
+-ms-transform: rotate(0deg);
+-o-transform: rotate(0deg);
+transform: rotate(0deg);
+}
+100% {
+-webkit-transform: rotate(360deg);
+-moz-transform: rotate(360deg);
+-ms-transform: rotate(360deg);
+-o-transform: rotate(360deg);
+transform: rotate(360deg);
+}
+}
+@-moz-keyframes spinner {
+0% {
+-webkit-transform: rotate(0deg);
+-moz-transform: rotate(0deg);
+-ms-transform: rotate(0deg);
+-o-transform: rotate(0deg);
+transform: rotate(0deg);
+}
+100% {
+-webkit-transform: rotate(360deg);
+-moz-transform: rotate(360deg);
+-ms-transform: rotate(360deg);
+-o-transform: rotate(360deg);
+transform: rotate(360deg);
+}
+}
+@-o-keyframes spinner {
+0% {
+-webkit-transform: rotate(0deg);
+-moz-transform: rotate(0deg);
+-ms-transform: rotate(0deg);
+-o-transform: rotate(0deg);
+transform: rotate(0deg);
+}
+100% {
+-webkit-transform: rotate(360deg);
+-moz-transform: rotate(360deg);
+-ms-transform: rotate(360deg);
+-o-transform: rotate(360deg);
+transform: rotate(360deg);
+}
+}
+@keyframes spinner {
+0% {
+-webkit-transform: rotate(0deg);
+-moz-transform: rotate(0deg);
+-ms-transform: rotate(0deg);
+-o-transform: rotate(0deg);
+transform: rotate(0deg);
+}
+100% {
+-webkit-transform: rotate(360deg);
+-moz-transform: rotate(360deg);
+-ms-transform: rotate(360deg);
+-o-transform: rotate(360deg);
+transform: rotate(360deg);
+}
+}

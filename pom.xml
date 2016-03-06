@@ -59,7 +59,7 @@
 				<artifactId>yeoman-maven-plugin</artifactId>
 				<version>0.2</version>
 				<configuration>
-					<yeomanProjectDirectory>${project.basedir}/src/main/resources/static</yeomanProjectDirectory>
+					<yeomanProjectDirectory>${project.basedir}/src/main/webapp</yeomanProjectDirectory>
 				</configuration>
 				<executions>
 					<execution>
@@ -81,15 +81,7 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
-					<warSourceDirectory>${project.basedir}/src/main/resources/static/dist</warSourceDirectory>
-					<webResources>
-						<resource>
-							<directory>src/main/resources/static</directory>
-							<includes>
-								<include>swagger-ui*/**</include>
-							</includes>
-						</resource>
-					</webResources>
+					<warSourceDirectory>${project.basedir}/src/main/webapp/dist</warSourceDirectory>
 				</configuration>
 			</plugin>
 		</plugins>

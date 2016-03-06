@@ -1,0 +1,37 @@
+select option[disabled]:first-child {
+display: none;
+}
+
+#new-outgoing-form div div:not(:first-child) {
+margin-top: 35px;
+}
+
+.glyphicon {
+    display: inline-block;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.glyphicon-chevron-left:before {
+  content: "\f053";
+}
+
+.glyphicon-chevron-right:before {
+  content: "\f054";
+}
+
+.invalid-date {
+border-color: red!important;
+}
+
+.datePickerRight {
+  position: relative;
+}
+.datePickerRight .dropdown-menu {
+   left: auto !important;
+   right: 0px;
+ }
