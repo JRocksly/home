@@ -1,6 +1,6 @@
-angular.module('home').constant("BASE_URL","/rest/elements/");
+angular.module('home').constant("BASE_URL_CATEGORIZATION_ELEMENT","/rest/elements/");
 
-angular.module('home').factory('CategorizationElementService', ['$http', '$q', 'BASE_URL', 'alertService', function($http, $q, BASE_URL, alertService) {
+angular.module('home').factory('CategorizationElementService', ['$http', '$q', 'BASE_URL_CATEGORIZATION_ELEMENT', 'alertService', function($http, $q, BASE_URL_CATEGORIZATION_ELEMENT, alertService) {
 
 	var CategorizationElementService = {
         
@@ -8,7 +8,7 @@ angular.module('home').factory('CategorizationElementService', ['$http', '$q', '
             var deferred = $q.defer();
             $http({
               method: 'GET',
-              url: BASE_URL + type
+              url: BASE_URL_CATEGORIZATION_ELEMENT + type
             }).then(
                 function(payload){
                     deferred.resolve(payload);
@@ -26,7 +26,7 @@ angular.module('home').factory('CategorizationElementService', ['$http', '$q', '
             var deferred = $q.defer();
             $http({
               method: 'GET',
-              url: BASE_URL + type + '/childs/' + id
+              url: BASE_URL_CATEGORIZATION_ELEMENT + type + '/childs/' + id
             }).then(
                 function(payload){
                     deferred.resolve(payload);
@@ -44,7 +44,7 @@ angular.module('home').factory('CategorizationElementService', ['$http', '$q', '
             var deferred = $q.defer();
             $http({
               method: 'POST',
-              url: BASE_URL + type,
+              url: BASE_URL_CATEGORIZATION_ELEMENT + type,
               data: data
             }).then(
                 function(payload){
@@ -63,7 +63,7 @@ angular.module('home').factory('CategorizationElementService', ['$http', '$q', '
             var deferred = $q.defer();
             $http({
               method: 'PUT',
-              url: BASE_URL + type + '/id/' + data.id,
+              url: BASE_URL_CATEGORIZATION_ELEMENT + type + '/id/' + data.id,
               data: data.label
             }).then(
                 function(payload){
@@ -82,7 +82,7 @@ angular.module('home').factory('CategorizationElementService', ['$http', '$q', '
             var deferred = $q.defer();
             $http({
               method: 'DELETE',
-              url: BASE_URL + type + '/id/' + id,
+              url: BASE_URL_CATEGORIZATION_ELEMENT + type + '/id/' + id,
             }).then(
                 function(payload){
                     deferred.resolve(payload);

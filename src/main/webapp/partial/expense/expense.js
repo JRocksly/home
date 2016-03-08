@@ -1,17 +1,4 @@
-angular.module('home').controller('ExpenseCtrl', ['$scope', 'CategorizationElementService', 'alertService', function($scope, CategorizationElementService, alertService){
-
-	$scope.outgoing = {};
-
-	$scope.causalList = [];
-	$scope.categoryList = [];
-	$scope.subcategoryList = [];
-
-	$scope.selectedCausal = {};
-	$scope.selectedCategory = {};
-	$scope.selectedSubCategory = {};
-
-	var categoryActive = false;
-	var subcategoryActive = false;
+angular.module('home').controller('ExpenseCtrl', ['$scope', 'CategorizationElementService', 'OutgoingService', 'alertService', function($scope, CategorizationElementService, OutgoingService, alertService) {
 
 	$scope.isActive = function(type) {
 		if(type === 'category') {
@@ -41,7 +28,35 @@ angular.module('home').controller('ExpenseCtrl', ['$scope', 'CategorizationEleme
 			);
 	};
 
-	$scope.getList('causal');
+	$scope.today = function() {
+		$scope.outgoing.date = new Date();
+	};
+
+	var categoryActive = false;
+	var subcategoryActive = false;
+
+	var date = new Date();
+	var validDate = true;
+	$scope.timezone = ((date.getTimezoneOffset() / 60) * -100);
+	$scope.format = 'dd/MM/yyyy';
+
+	var init = function() { 
+		$scope.outgoing = {};
+		$scope.outgoing.expense = "0.00";
+
+		$scope.causalList = [];
+		$scope.categoryList = [];
+		$scope.subcategoryList = [];
+
+		$scope.selectedCausal = {};
+		$scope.selectedCategory = {};
+		$scope.selectedSubCategory = {};
+
+		$scope.getList('causal');
+		$scope.today();
+	};
+
+	init();
 
 	$scope.select = function(type) {
 		if(type === 'causal') {
@@ -76,17 +91,6 @@ angular.module('home').controller('ExpenseCtrl', ['$scope', 'CategorizationEleme
 			}
 			);
 	};
-
-	var date = new Date();
-	$scope.timezone = ((date.getTimezoneOffset() / 60) * -100);
-	$scope.format = 'dd/MM/yyyy';
-	var validDate = true;
-
-	$scope.today = function() {
-		$scope.outgoing.date = new Date();
-	};
-
-	$scope.today();
 
 	$scope.clear = function() {
 		$scope.outgoing.date = null;
@@ -127,19 +131,32 @@ angular.module('home').controller('ExpenseCtrl', ['$scope', 'CategorizationEleme
 
 	    // Check the ranges of month and year
 	    if(year < 1000 || year > 3000 || month === 0 || month > 12) {
-	    validDate =  false;
-	    return;
+	    	validDate =  false;
+	    	return;
 	    }
 
 	    var monthLength = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
 
 	    // Adjust for leap years
 	    if(year % 400 === 0 || (year % 100 !== 0 && year % 4 === 0)) {
-	    monthLength[1] = 29;
+	    	monthLength[1] = 29;
 	    }
 
 	    // Check the range of the day
 	    validDate = day > 0 && day <= monthLength[month - 1];
+	};
+
+	$scope.createExpense = function() {
+		var newOutgoing = JSON.parse(JSON.stringify($scope.outgoing));
+		OutgoingService.create(newOutgoing).then(
+			function(payload){
+				alertService.openAlert("success", "Spesa inserita correttamente!");
+				init();
+			},
+			function(err){
+				alertService.openAlert("error", "Non ho idea di cosa sia successo O_O");
+			}
+			);
 	};
 
 }]);
