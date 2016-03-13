@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import jrocksly.project.bean.CategorizationElemBean;
 import jrocksly.project.bean.OutgoingBean;
+import jrocksly.project.dto.AlertDTO;
 import jrocksly.project.dto.OutgoingDTO;
 import jrocksly.project.model.CategorizationElem;
 
@@ -59,7 +60,7 @@ public class OutgoingService {
 		}
 		Date startDate = null;
 		Date endDate = null;
-		DateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.ITALIAN);
+		DateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.ITALIAN);
 		try {
 			if(sDate != null) {
 				startDate = format.parse(sDate);
@@ -89,51 +90,63 @@ public class OutgoingService {
 	
 	@RequestMapping(method=RequestMethod.POST, consumes={"application/json"}, produces={"application/json"})
 	public ResponseEntity<?> create(@RequestBody OutgoingDTO outgoing) {
+		
 		if(outgoing == null) {
-			return new ResponseEntity<>("Errore!", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(new AlertDTO("error", "Errore!"), HttpStatus.BAD_REQUEST);
 		}else if(outgoing.getDescription() == null || outgoing.getDescription().length() < 3) {
-			return new ResponseEntity<>("Inserire almeno 3 caratteri per la descrizione!", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(new AlertDTO("error", "Inserire almeno 3 caratteri per la descrizione!"), HttpStatus.BAD_REQUEST);
 		}else if(outgoing.getCausalId() == null || outgoing.getCausalId().isEmpty()) {
-			return new ResponseEntity<>("Causale non valida!", HttpStatus.BAD_REQUEST);
-		}else if(outgoing.getDate() == null || !outgoing.getDate().isEmpty()) {
-			return new ResponseEntity<>("Data non presente o non valida!", HttpStatus.BAD_REQUEST);
-		}else if(outgoing.getExpense() == null || !outgoing.getExpense().isEmpty()) {
-			return new ResponseEntity<>("Importo non presente o non valido!", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(new AlertDTO("error", "Causale non valida!"), HttpStatus.BAD_REQUEST);
+		}else if(outgoing.getDate() == null || outgoing.getDate().isEmpty()) {
+			return new ResponseEntity<>(new AlertDTO("error", "Data non presente o non valida!"), HttpStatus.BAD_REQUEST);
+		}else if(outgoing.getExpense() == null || outgoing.getExpense().isEmpty()) {
+			return new ResponseEntity<>(new AlertDTO("error", "Importo non presente o non valido!"), HttpStatus.BAD_REQUEST);
 		}
-		Long causalId = Long.parseLong(outgoing.getCausalId());
+		
+		Long causalId = null;
 		Long categoryId = null;
 		Long subCategoryId = null;
 		try {
+			causalId = Long.parseLong(outgoing.getCausalId());
 			if(!bean.exists(CategorizationElem.Type.CASUAL.getRestApi(), outgoing.getCausalId())) {
-				return new ResponseEntity<>("Causale non valida!", HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<>(new AlertDTO("error", "Causale non valida!"), HttpStatus.BAD_REQUEST);
 			}
 			if(outgoing.getCategoryId() != null && !outgoing.getCategoryId().isEmpty()) {
 				categoryId = Long.parseLong(outgoing.getCategoryId());
 				if(!bean.exists(CategorizationElem.Type.CATEGORY.getRestApi(), outgoing.getCategoryId())) {
-					return new ResponseEntity<>("Categoria non valida!", HttpStatus.BAD_REQUEST);
+					return new ResponseEntity<>(new AlertDTO("error", "Categoria non valida!"), HttpStatus.BAD_REQUEST);
 				}
 			}
 			if(outgoing.getSubcategoryId() != null && !outgoing.getSubcategoryId().isEmpty()) {
 				subCategoryId = Long.parseLong(outgoing.getSubcategoryId());
 				if(!bean.exists(CategorizationElem.Type.SUBCATEGORY.getRestApi(), outgoing.getSubcategoryId())) {
-					return new ResponseEntity<>("Sotto-categoria non valida!", HttpStatus.BAD_REQUEST);
+					return new ResponseEntity<>(new AlertDTO("error", "Sotto-categoria non valida!"), HttpStatus.BAD_REQUEST);
 				}
 			}
-		} catch (NumberFormatException e1) {
-			return new ResponseEntity<>("Identificativo non valido!", HttpStatus.BAD_REQUEST);
-		} catch (Exception e1) {
-			return new ResponseEntity<>("Elemento non trovato!", HttpStatus.NOT_FOUND);
+		} catch (NumberFormatException e) {
+			return new ResponseEntity<>(new AlertDTO("error", "Identificativo non valido!"), HttpStatus.BAD_REQUEST);
+		} catch (Exception e) {
+			return new ResponseEntity<>(new AlertDTO("error", "Elemento non trovato!"), HttpStatus.NOT_FOUND);
 		}
+		
 		Date date = null;
-		DateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.ITALIAN);
+		DateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.ITALIAN);
 		try {
 			date = format.parse(outgoing.getDate());
 		} catch (ParseException e) {
-			return new ResponseEntity<>("Data non valida!", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(new AlertDTO("error", "Data non valida!"), HttpStatus.BAD_REQUEST);
 		}
+		
 		BigDecimal expense = new BigDecimal(outgoing.getExpense()).setScale(2, BigDecimal.ROUND_HALF_UP);
-		outgoingBean.create(causalId, categoryId, subCategoryId, outgoing.getDescription(), date, expense);
+		
+		try {
+			outgoingBean.create(causalId, categoryId, subCategoryId, outgoing.getDescription(), date, expense);
+		} catch (Exception e) {
+			return new ResponseEntity<>(new AlertDTO("error", e.getMessage()), HttpStatus.BAD_REQUEST);
+		}
+		
 		return new ResponseEntity<>(HttpStatus.CREATED);
+		
 	}
 	
 	@RequestMapping(value={"/{id}"}, method=RequestMethod.PUT, consumes={"application/json"}, produces={"application/json"})

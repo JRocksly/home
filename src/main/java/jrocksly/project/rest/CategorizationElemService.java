@@ -30,7 +30,7 @@ public class CategorizationElemService {
 		try {
 			output = bean.getList(type);
 		} catch (Exception e) {
-			return new ResponseEntity<>(new AlertDTO("error", "Tipo di elemento inesistente!"), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(new AlertDTO("error", e.getMessage()), HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(output, HttpStatus.OK);
 	}
@@ -42,7 +42,7 @@ public class CategorizationElemService {
 		try {
 			output = bean.getChildsList(type, id);
 		} catch (Exception e) {
-			return new ResponseEntity<>(new AlertDTO("error", "Tipo di elemento inesistente!"), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(new AlertDTO("error", e.getMessage()), HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(output, HttpStatus.OK);
 	}
@@ -75,7 +75,7 @@ public class CategorizationElemService {
 		} catch (PersistenceException e) {
 			return new ResponseEntity<>(new AlertDTO("error", "Nome gia' esistente!"), HttpStatus.CONFLICT);
 		} catch (Exception e) {
-			return new ResponseEntity<>(new AlertDTO("error", "Elemento non trovato!"), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(new AlertDTO("error", e.getMessage()), HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
@@ -94,7 +94,7 @@ public class CategorizationElemService {
 				return new ResponseEntity<>(new AlertDTO("error", "Impossibile eliminare, etichetta in uso!"), HttpStatus.BAD_REQUEST);
 			}
 		} catch (Exception e) {
-			return new ResponseEntity<>(new AlertDTO("error", "Elemento non trovato!"), HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(new AlertDTO("error", e.getMessage()), HttpStatus.NOT_FOUND);
 		}
 	}
 	

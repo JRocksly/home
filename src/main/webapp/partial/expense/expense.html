@@ -12,8 +12,8 @@
     <form id="new-outgoing-form" name="insertOutgoing" novalidate>
       <div class="col-xs-12 col-sm-12 col-md-6">
         <div class="form-group">
-          <label for="desc">Descrizione: <font color="red">*</font></label>
-          <input required name="desc" ng-model="outgoing.description" ng-minlength="3" ng-maxlength="30" type="text" class="form-control" id="desc" placeholder='Ad esempio "Ristorate Giapponese", "Bolletta ENEL", etc...' ng-class="{'invalid-field' : !(!insertOutgoing.desc.$error.required || insertOutgoing.desc.$pristine) || insertOutgoing.desc.$error.minlength || insertOutgoing.desc.$error.maxlength}"}>
+          <label for="desc">Descrizione(minimo 3 caratteri): <font color="red">*</font></label>
+          <input required name="desc" ng-model="outgoing.description" ng-minlength="3" ng-maxlength="30" type="text" class="form-control" id="desc" placeholder='Ad esempio "Ristorate Giapponese", "Bolletta ENEL", etc...' ng-class="{'invalid-field' : insertOutgoing.desc.$error.maxlength}"}>
         </div>
         <div class="form-group">
           <label for="date">Data: <font color="red">*</font></label>

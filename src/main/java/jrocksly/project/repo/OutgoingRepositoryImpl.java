@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Component;
 
@@ -15,6 +16,7 @@ import jrocksly.project.model.Outgoing;
 
 @SuppressWarnings("unchecked")
 @Component("hqlOutgoingRepo")
+@Transactional
 public class OutgoingRepositoryImpl implements OutgoingRepository {
 
 	@PersistenceContext
@@ -100,9 +102,45 @@ public class OutgoingRepositoryImpl implements OutgoingRepository {
 		return q.getResultList();
 	}
 
+
 	@Override
-	public void saveOutgoing(Outgoing o) {
-		em.persist(o);
+	public boolean validateCategorizationTree(Long causalId, Long categoryId, Long subCategoryId) {
+		if(causalId != null) {
+			if(categoryId != null) {
+				if(subCategoryId != null) {
+					return em.createQuery("select c from Causal c, Category ca, SubCategory sca "
+							+ "where c.id = :causalIdParam and ca.parentId = c.id and ca.id = :categoryIdParam and sca.parentId = ca.id and sca.id = subCategoryIdParam")
+						.setParameter("causalIdParam", causalId)
+						.setParameter("categoryIdParam", categoryId)
+						.setParameter("subCategoryIdParam", subCategoryId)
+						.getSingleResult() != null;
+				}else{
+					return em.createQuery("select c from Causal c, Category ca "
+							+ "where c.id = :causalIdParam and ca.parentId = c.id and ca.id = :categoryIdParam")
+						.setParameter("causalIdParam", causalId)
+						.setParameter("categoryIdParam", categoryId)
+						.getSingleResult() != null;
+				}
+			}else{
+				return em.createQuery("select c from Causal c "
+						+ "where c.id = :causalIdParam")
+					.setParameter("causalIdParam", causalId)
+					.getSingleResult() != null;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public void saveOutgoing(Long causalId, Long categoryId, Long subCategoryId, String description, Date date, BigDecimal expense) {
+		Outgoing outgoing = new Outgoing();
+		outgoing.setCausalId(causalId);
+		outgoing.setCategoryId(categoryId);
+		outgoing.setSubcategoryId(subCategoryId);
+		outgoing.setDescription(description);
+		outgoing.setDate(date);
+		outgoing.setExpense(expense);
+		em.persist(outgoing);
 	}
 
 	@Override

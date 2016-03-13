@@ -14,8 +14,10 @@ public interface OutgoingRepository {
 	List<OutgoingDTO> getOutgoingList(Long causalId, Long categoryId, Long subcategoryId, String description,
 			Date startDate, Date endDate, BigDecimal startExpense, BigDecimal endExpense);
 	
-	void saveOutgoing(Outgoing o);
-	
 	void deleteOutgoing(Outgoing o);
+
+	void saveOutgoing(Long causalId, Long categoryId, Long subCategoryId, String description, Date date, BigDecimal expense);
+
+	boolean validateCategorizationTree(Long causalId, Long categoryId, Long subCategoryId);
 
 }

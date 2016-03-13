@@ -20,7 +20,7 @@ public class CategorizationElemBean {
 	public List<CategorizationElemDTO> getList(String type) throws Exception {
 		Type entityType = Type.findByApi(type);
 		if(entityType == null) {
-			throw new Exception();
+			throw new Exception("Tipo di elemento inesistente!");
 		}
 		List<CategorizationElemDTO> output = categorizationElemRepo.getElementsList(entityType);
 		return output;
@@ -29,7 +29,7 @@ public class CategorizationElemBean {
 	public List<CategorizationElemDTO> getChildsList(String type, String id) throws Exception {
 		Type entityType = Type.findByApi(type);
 		if(entityType == null) {
-			throw new Exception();
+			throw new Exception("Tipo di elemento inesistente!");
 		}
 		Long elementId = Long.parseLong(id);
 		List<CategorizationElemDTO> output = categorizationElemRepo.getElementChildsList(elementId, entityType);
@@ -40,7 +40,7 @@ public class CategorizationElemBean {
 	public void create(String type, CategorizationElemDTO elem) throws Exception {
 		Type entityType = Type.findByApi(type);
 		if(entityType == null) {
-			throw new Exception();
+			throw new Exception("Tipo di elemento inesistente!");
 		}
 		Long parentId = null;
 		if(elem.getParentId() != null && !elem.getParentId().isEmpty()) {
@@ -56,7 +56,7 @@ public class CategorizationElemBean {
 		}
 		Type parentType = Type.findParentEntity(entityType.getEntityName());
 		if(entityType == null || parentType == null) {
-			throw new Exception();
+			throw new Exception("Categorizzazione non valida!");
 		}
 		Long parent = null;
 		if(parentId != null && !parentId.isEmpty()) {
@@ -70,7 +70,7 @@ public class CategorizationElemBean {
 		if(c != null) {
 			categorizationElemRepo.update(c, type, label);
 		}else{
-			throw new Exception();
+			throw new Exception("Elemento non trovato!");
 		}
 	}
 
@@ -79,14 +79,14 @@ public class CategorizationElemBean {
 		if(c != null) {
 			categorizationElemRepo.delete(c);
 		}else{
-			throw new Exception();
+			throw new Exception("Elemento non trovato!");
 		}
 	}
 
 	public boolean isUsed(String type, String id) throws Exception {
 		Type entityType = Type.findByApi(type);
 		if(entityType == null) {
-			throw new Exception();
+			throw new Exception("Tipo di elemento inesistente!");
 		}
 		Long elementId = Long.parseLong(id);
 		return categorizationElemRepo.isUsed(entityType, elementId);
@@ -101,7 +101,7 @@ public class CategorizationElemBean {
 	private CategorizationElem getElement(String type, String id) throws Exception {
 		Type entityType = Type.findByApi(type);
 		if(entityType == null) {
-			throw new Exception();
+			throw new Exception("Tipo di elemento inesistente!");
 		}
 		Long elementId = null;
 		if(id != null && !id.isEmpty()) {

@@ -25,16 +25,12 @@ public class OutgoingBean {
 		return output;
 	}
 
-	public void create(Long causalId, Long categoryId, Long subCategoryId, String description, 
-			Date date, BigDecimal expense) {
-		//TODO Check alberatura
-		Outgoing outgoing = new Outgoing();
-		outgoing.setCausalId(causalId);
-		outgoing.setCategoryId(categoryId);
-		outgoing.setSubcategoryId(subCategoryId);
-		outgoing.setDate(date);
-		outgoing.setExpense(expense);
-		outgoingRepo.saveOutgoing(outgoing);
+	public void create(Long causalId, Long categoryId, Long subCategoryId, String description, Date date, BigDecimal expense) throws Exception {
+		if(outgoingRepo.validateCategorizationTree(causalId, categoryId, subCategoryId)) {
+			outgoingRepo.saveOutgoing(causalId, categoryId, subCategoryId, description, date, expense);
+		}else{
+			throw new Exception("Categorizzazione non valida");
+		}
 	}
 
 	public void delete(Long id) throws Exception {

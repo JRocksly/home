@@ -5,6 +5,7 @@ angular.module('home').config(function($routeProvider) {
     $routeProvider.when('/home',{templateUrl: 'partial/home/home.html'});
     $routeProvider.when('/admin',{templateUrl: 'partial/admin/admin.html'});
     $routeProvider.when('/expense',{templateUrl: 'partial/expense/expense.html'});
+    $routeProvider.when('/outgoing',{templateUrl: 'partial/outgoing/outgoing.html'});
     /* Add New Routes Above */
     $routeProvider.otherwise({redirectTo:'/home'});
 
